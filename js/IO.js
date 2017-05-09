@@ -24,17 +24,24 @@
 
 var IO = function() {
     this.data = null;
-    this.project_base = 'http://cdn.projects.scratch.mit.edu/internalapi/project/';
-    this.project_suffix = '/get/';
-    this.asset_base = 'http://cdn.assets.scratch.mit.edu/internalapi/asset/';
-    this.asset_suffix = '/get/';
+    //this.project_base = 'http://cdn.projects.scratch.mit.edu/internalapi/project/';
+	//this.project_base = 'http://ym.youngmaker.cn/works/49/json491493867448.json';
+	//this.project_base = 'http://ym.youngmaker.cn/works/49/json491493872589.json';
+	this.project_base = 'http://ym.youngmaker.cn/index.php?s=/home/mycode/wap.html';
+    //this.project_suffix = '/get/';
+	this.project_suffix = '';
+    //this.asset_base = 'http://cdn.assets.scratch.mit.edu/internalapi/asset/';
+	this.asset_base = 'http://ym.youngmaker.cn/Public/static/scratch/media/';
+    //this.asset_suffix = '/get/';
+	this.asset_suffix = '';
     this.soundbank_base = 'soundbank/';
     this.spriteLayerCount = 0;
 };
 
 IO.prototype.loadProject = function(project_id) {
     var self = this;
-    $.getJSON(this.project_base + project_id + this.project_suffix, function(data) {
+    $.getJSON(this.project_base, function(data) {
+	//$.getJSON(this.project_base + project_id + this.project_suffix, function(data) {
         self.data = data;
         self.makeObjects();
         self.loadThreads();
@@ -45,7 +52,8 @@ IO.prototype.loadProject = function(project_id) {
 
 IO.prototype.soundRequest = function(sound, sprite) {
     var request = new XMLHttpRequest();
-    request.open('GET', this.asset_base + sound['md5'] + this.asset_suffix, true);
+    //request.open('GET', this.asset_base + sound['md5'] + this.asset_suffix, true);
+	request.open('GET', this.asset_base + sound['md5'], true);
     request.responseType = 'arraybuffer';
     request.onload = function() {
         var waveData = request.response;
